@@ -1,26 +1,24 @@
-def caesar_cipher(string, right_shift)
-  alphabet = 'abcdefghijklmnopqrstuvwxyz'
-  lowercase = alphabet.split('')
-  uppercase = alphabet.upcase.split('')
-  phrase = string.split('')
-  cipher = []
+def caesar_cipher(string, shift_amount)
+  alphabet_length = 26
 
-  phrase.each do |char|
-    if uppercase.include?(char)
-      cipher << uppercase[wrap(uppercase.index(char) + right_shift, 26)]
-    elsif lowercase.include?(char)
-      cipher << lowercase[wrap(lowercase.index(char) + right_shift, 26)]
+  string.chars.map do |char|
+
+    char_code = char.ord
+
+    base =
+      if char_code.between?('a'.ord, 'z'.ord)
+        'a'.ord
+      elsif char_code.between?('A'.ord, 'Z'.ord)
+        'A'.ord
+      end
+
+    if base
+      (base + ((char_code - base + shift_amount) % alphabet_length)).chr
     else
-      cipher << char
+      char
     end
-  end
-
-  cipher = cipher.join('')
-  puts cipher
+  end.join('')
 end
 
-def wrap(value, max_value)
-  value > max_value ? value - max_value : value
-end
-
-caesar_cipher("What a string!", 5)
+encrypted_string = caesar_cipher("What a string!", 5)
+puts encrypted_string

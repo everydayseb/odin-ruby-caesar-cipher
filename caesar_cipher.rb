@@ -2,7 +2,6 @@ def caesar_cipher(string, shift_amount)
   alphabet_length = 26
 
   string.chars.map do |char|
-
     char_code = char.ord
 
     base =
@@ -17,8 +16,8 @@ def caesar_cipher(string, shift_amount)
     else
       char
     end
-  end.join('')
+  end.join
 end
 
-encrypted_string = caesar_cipher("What a string!", 5)
+encrypted_string = caesar_cipher('What a string!', 5)
 puts encrypted_string
